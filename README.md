@@ -12,3 +12,4 @@ at root
 npm run server
 
 ```
+go to localhost:5000
