@@ -3,18 +3,13 @@
 
 ```
 npm install
-cd frontend
-npm install
 ```
 
 ### Run
 at root
 
 ```
-# Run frontend 
-npm run client
-
-# Run backend 
+# Run 
 npm run server
 
 ```
