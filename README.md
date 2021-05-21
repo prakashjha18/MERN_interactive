@@ -11,10 +11,10 @@ npm install
 at root
 
 ```
-# Run frontend (:3000) & backend (:5000)
-npm run dev
+# Run frontend 
+npm run client
 
-# Run backend only
+# Run backend 
 npm run server
 
 ```
