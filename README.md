@@ -8,6 +8,7 @@ npm install
 ```
 
 ### Run
+at root
 
 ```
 # Run frontend (:3000) & backend (:5000)
