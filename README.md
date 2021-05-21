@@ -9,7 +9,6 @@ npm install
 at root
 
 ```
-# Run 
 npm run server
 
 ```
