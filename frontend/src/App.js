@@ -32,7 +32,7 @@ const PrivateRoute = ({ Component, ...props }) => {
 		<Route
 			render={() => (
 				<Suspense fallback={<Loader />}>
-					{userInfo?<Component/>:<Unauthorized/>}
+					{(userInfo && userInfo.isAdmin)?<Component/>:<Unauthorized/>}
 				</Suspense>
 			)}
 			{...props}
