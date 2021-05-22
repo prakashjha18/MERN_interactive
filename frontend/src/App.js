@@ -16,6 +16,29 @@ import Listing from "./containers/Listing";
 import Aircraft from "./containers/Aircraft";
 import DetailList from "./containers/DetailList";
 import Dashboard from "./containers/Dashboard";
+import { useDispatch, useSelector } from "react-redux";
+
+const Unauthorized = () => {
+	return (
+		<div className="h-64 w-80 bg-white m-auto p-10 mt-28 font-bold text-3xl rounded-lg">
+			You are not authorized to access this page.
+		</div>
+	)
+}
+const PrivateRoute = ({ Component, ...props }) => {
+	const userLogin = useSelector((state) => state.userLogin)
+  	const { userInfo } = userLogin
+	return (
+		<Route
+			render={() => (
+				<Suspense fallback={<Loader />}>
+					{userInfo?<Component/>:<Unauthorized/>}
+				</Suspense>
+			)}
+			{...props}
+		/>
+	)
+}
 
 function App() {
 	const [isBotOpen,setIsBotOpen] = useState(false);
@@ -81,23 +104,15 @@ function App() {
 								</Suspense>
 							)}
 						/>
-						<Route
+						<PrivateRoute
 							exact
 							path="/buglisting"
-							render={() => (
-								<Suspense fallback={<Loader />}>
-									<BugListing />
-								</Suspense>
-							)}
+							Component={BugListing}
 						/>
-						<Route
+						<PrivateRoute
 							exact
 							path="/analytics"
-							render={() => (
-								<Suspense fallback={<Loader />}>
-									<Dashboard />
-								</Suspense>
-							)}
+							Component={Dashboard}
 						/>
 						<Route
 							exact
@@ -117,23 +132,15 @@ function App() {
 								</Suspense>
 							)}
 						/>
-						<Route
+						<PrivateRoute
 							exact
 							path="/addCategories"
-							render={() => (
-								<Suspense fallback={<Loader />}>
-									<AddCategoryPage />
-								</Suspense>
-							)}
+							Component={AddCategoryPage}
 						/>
-						<Route
+						<PrivateRoute
 							exact
 							path="/createannouncement"
-							render={() => (
-								<Suspense fallback={<Loader />}>
-									<Announcement />
-								</Suspense>
-							)}
+							Component={Announcement}
 						/>
 					</Switch>
 				</div>
