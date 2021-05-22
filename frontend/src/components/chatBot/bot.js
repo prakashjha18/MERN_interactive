@@ -168,7 +168,9 @@ const Bot = (props) => {
         onDrag={handleDrag}
         onStop={handleStop}
         >
-        <div className={`${!isOpen?'visible opacity-100':'invisible opacity-0'} fixed bottom-7 right-7 transform transition-all duration-500 text-3xl rounded-full bg-current p-3 text-white cursor-pointer`}
+        <div
+          style={{ zIndex: 9999 }}
+          className={`${!isOpen?'visible opacity-100':'invisible opacity-0'} fixed bottom-7 right-7 transform transition-all duration-500 text-3xl rounded-full bg-current p-3 text-white cursor-pointer`}
         >
           <i className="fas fa-robot"/>
         </div>
