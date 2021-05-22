@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Airbus_Logo from "../Logo/logo_white.svg";
 import Modal from "../components/common/Modal";
@@ -12,9 +12,11 @@ function NavBar() {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+	let history = useHistory();
 
   const logoutHandler = () => {
     dispatch(logout())
+	history.push('/');
   }
 	const [loginModal,setLoginModal] = useState(false);
 	const [signUpModal,setSignUpModal] = useState(false);
