@@ -11,7 +11,7 @@ import LiveChat from './liveChat';
 import SearchflightScreen from './SearchFlight';
 import { useHistory } from 'react-router-dom';
 import Announcementbot from './Announcementbot';
-import { Visibility } from '@material-ui/icons';
+import Draggable from 'react-draggable';
 
 const Bot = (props) => {
   const { isOpen, toggle } = props;
@@ -20,6 +20,8 @@ const Bot = (props) => {
   const [selectedQuestion,setSelectedQuestion] = useState({});
   const [navSearchOpen,setNavSearchOpen] = useState(false);
   const [navSearchValue,setNavSearchValue] = useState('');
+  const [botPos,setBotPos] = useState({ x: 0, y: 0 });
+  const [isDragging,setIsDragging] = useState(false);
 
   let history = useHistory();
 
@@ -142,13 +144,35 @@ const Bot = (props) => {
     </div>
   )
 
+  const handleDrag = (e, d) => {
+    const { x, y } = botPos;
+    setBotPos({
+        x: x + d.deltaX,
+        y: y + d.deltaY,
+    });
+    setIsDragging(true);
+  };
+
+  const handleStop = (e) => {
+    if(isDragging) setIsDragging(false);
+    else toggle();
+  }
+
   return (
     <>
-      <div className={`${!isOpen?'visible opacity-100':'invisible opacity-0'} transform transition-all duration-500 fixed bottom-7 right-7 text-3xl rounded-full bg-current p-3 text-white cursor-pointer`}
-        onClick={toggle}
-      >
-        <i className="fas fa-robot"/>
-      </div>
+      <Draggable
+        defaultPosition={botPos}
+        position={null}
+        scale={1}
+        //onStart={handleStart}
+        onDrag={handleDrag}
+        onStop={handleStop}
+        >
+        <div className={`${!isOpen?'visible opacity-100':'invisible opacity-0'} fixed bottom-7 right-7 transform transition-all duration-500 text-3xl rounded-full bg-current p-3 text-white cursor-pointer`}
+        >
+          <i className="fas fa-robot"/>
+        </div>
+      </Draggable>
       <div className={`${isOpen?'visible opacity-100':'invisible opacity-0'} transform transition-all duration-500 fixed bottom-5 right-3 bg-gray-100 w-1/4 h-2/3 rounded-lg z-50`}>
         <div className="bg-current text-white p-2 grid grid-cols-6">
         { screenStack.length===1 && <div className="rounded-lg cursor-pointer hover:bg-opacity-70" onClick={toggle}> <i className="fas fa-times-circle"/> </div> }
