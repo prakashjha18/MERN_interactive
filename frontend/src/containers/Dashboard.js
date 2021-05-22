@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { Container, Row, Col } from "reactstrap";
 // Custom reusable components
 import Card from "../components/dashboard/card.js";
 import RatesCard from "../components/dashboard/RatesCard.js";
@@ -17,42 +16,21 @@ function Dashboard(props) {
 
 	const dispatch = useDispatch();
 	const userLogin = useSelector((state) => state.userLogin);
-	//const currentUrl = props.location.pathname;
 	const [loading, setloading] = useState(true);
 	const [flight_data, setFlight_data] = useState(null);
 	const [luggage_service, setluggage_service] = useState(null);
 	const [cabin_service, setcabin_service] = useState(null);
 	const [ramp_up_service, setramp_up_service] = useState(null);
 
-	// useEffect(() => {
-	//   // if (currentUrl === "/dashboard") {
-	//   //   console.log("running👈👈👈👈👈👈👈👈👈");
-	//   //   // document.body.style.background = "white";
-	//   //   document.getElementById("shurikken").style.background = "white";
-	//   // }
-	//   return () => {
-	//     console.log("THE CLEAN UP EVENT");
-	//     document.getElementById("shurikken").style.background = "";
-	//   };
-	// }, []);
-
 	useEffect(() => {
-		fetch("http://localhost:5000/api/flights/", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => response.json())
-			.then((data) => {
+		axios.get("/api/flights/")
+			.then(({ data }) => {
 				console.log(data);
 				var lug_array = [],
 					cabin_array = [],
 					ramup_array = [];
 				setFlight_data(data);
 				for (let i = 0; i < data.length; i++) {
-					//getting the luggage values
-					// console.log("THE KEY", data[i]);
 					lug_array.push(data[i].flightlog.luggagehandler);
 					cabin_array.push(data[i].flightlog.cabinhandler);
 					ramup_array.push(data[i].flightlog.rampuphandler);
