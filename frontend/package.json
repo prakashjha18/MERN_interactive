@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.15.6",
     "axios": "^0.21.1",
+    "chart.js": "^3.2.1",
     "formik": "^2.2.6",
     "install": "^0.13.0",
     "moment": "^2.29.1",
